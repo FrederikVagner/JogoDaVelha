@@ -8,17 +8,17 @@ package tabuleiro;
  *
  */
 public enum Tipo {
-	VAZIO(' '),
-	X('x'),
-	O('o');
+	VAZIO(" "),
+	X("X"),
+	O("O");
 	
-	final private char nome;
+	private String nome;
 	
-	private Tipo(char str) {
+	private Tipo(String str) {
 		nome = str;
 	}
 
-	public char getNome() {
+	public String getNome() {
 		return nome;
 	}
 }
