@@ -17,4 +17,8 @@ public enum Tipo {
 	private Tipo(char str) {
 		nome = str;
 	}
+
+	public char getNome() {
+		return nome;
+	}
 }
