@@ -8,9 +8,17 @@ package tabuleiro;
  * 
  */
 public class Tabuleiro {
+	static private Tabuleiro tab;
+
+	static public Tabuleiro getInstance() {
+		if (tab == null)
+			tab = new Tabuleiro();
+		return tab;
+	}
+
 	private Tipo[][] tabuleiro;
 
-	public Tabuleiro() {
+	private Tabuleiro() {
 		tabuleiro = new Tipo[3][3];
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 3; j++)
@@ -27,15 +35,27 @@ public class Tabuleiro {
 			throw new IllegalAccessException();
 	}
 
-	public boolean vitoria(int i, int j, Tipo t) {
+	public Estado estadojogo() {
+		if (vitoria(Tipo.X))
+			return Estado.VITX;
+		if (vitoria(Tipo.O))
+			return Estado.VITO;
+		return gameover();
+	}
+
+	private boolean vitoria(Tipo t) {
 		// checar por linha
-		if (tabuleiro[i][0] == t && tabuleiro[i][1] == t
-				&& tabuleiro[i][2] == t)
-			return true;
+		for (int i = 0; i < 3; i++) {
+			if (tabuleiro[i][0] == t && tabuleiro[i][1] == t
+					&& tabuleiro[i][2] == t)
+				return true;
+		}
 		// checar por coluna
-		if (tabuleiro[0][j] == t && tabuleiro[1][j] == t
-				&& tabuleiro[2][j] == t)
-			return true;
+		for (int j = 0; j < 3; j++) {
+			if (tabuleiro[0][j] == t && tabuleiro[1][j] == t
+					&& tabuleiro[2][j] == t)
+				return true;
+		}
 		// checa diagonal principal
 		if (tabuleiro[0][0] == t && tabuleiro[1][1] == t
 				&& tabuleiro[2][2] == t)
@@ -47,12 +67,12 @@ public class Tabuleiro {
 		return false;
 	}
 
-	public boolean gameover() {
+	public Estado gameover() {
 		for (int i = 0; i < 3; i++)
 			for (int j = 0; j < 3; j++)
 				if (tabuleiro[i][j] == Tipo.VAZIO)
-					return false;
-		return true;
+					return Estado.EMJOGO;
+		return Estado.GAMEOVER;
 	}
 
 	public void pirnt() {
