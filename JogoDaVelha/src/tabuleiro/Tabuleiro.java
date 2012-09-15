@@ -28,17 +28,30 @@ public class Tabuleiro {
 	}
 
 	public boolean vitoria(int i, int j, Tipo t) {
-		//checa diagonais:
-		//chaca por linha
-		for(int aj = 0; aj < 3; aj++){
-			if (t != tabuleiro[i][aj])
-				return false;
-		}
-		//checa por coluna
-		for(int ai = 0; ai < 3; ai++){
-			if (t != tabuleiro[ai][j])
-				return false;
-		}
+		// checar por linha
+		if (tabuleiro[i][0] == t && tabuleiro[i][1] == t
+				&& tabuleiro[i][2] == t)
+			return true;
+		// checar por coluna
+		if (tabuleiro[0][j] == t && tabuleiro[1][j] == t
+				&& tabuleiro[2][j] == t)
+			return true;
+		// checa diagonal principal
+		if (tabuleiro[0][0] == t && tabuleiro[1][1] == t
+				&& tabuleiro[2][2] == t)
+			return true;
+		// checa anti diagonal
+		if (tabuleiro[0][2] == t && tabuleiro[1][1] == t
+				&& tabuleiro[2][0] == t)
+			return true;
+		return false;
+	}
+
+	public boolean gameover() {
+		for (int i = 0; i < 3; i++)
+			for (int j = 0; j < 3; j++)
+				if (tabuleiro[i][j] == Tipo.VAZIO)
+					return false;
 		return true;
 	}
 
